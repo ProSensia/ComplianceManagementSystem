@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Standards Management - ProSensia</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <!-- Navigation (same as index.html) -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="../assets/images/logo.png" height="40" class="d-inline-block align-text-top">
+                
+            </a>
+
+            <!-- Organization Switcher -->
+            <div class="navbar-nav mx-3">
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="orgDropdown" role="button"
+                        data-bs-toggle="dropdown">
+                        <i class="fas fa-building me-1"></i>
+                        <span id="current-org">ACMI Education</span>
+                    </a>
+                    <ul class="dropdown-menu" id="org-list">
+                        <li><a class="dropdown-item active" href="#" data-org="acmi">ACMI Education</a></li>
+                        <li><a class="dropdown-item" href="#" data-org="global">Global Skills Institute</a></li>
+                        <li><a class="dropdown-item" href="#" data-org="metro">Metro College</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#addOrgModal"><i
+                                    class="fas fa-plus me-1"></i>Add Organization</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center">
+                <!-- Live Support -->
+                <button class="btn btn-outline-light btn-sm me-2" id="liveSupport">
+                    <i class="fas fa-headset me-1"></i> Live Support
+                </button>
+
+                <!-- Notifications -->
+                <div class="dropdown me-3">
+                    <button class="btn btn-outline-light btn-sm dropdown-toggle position-relative" type="button"
+                        id="notificationsDropdown" data-bs-toggle="dropdown">
+                        <i class="fas fa-bell"></i>
+                        <span
+                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">5</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <h6 class="dropdown-header">Notifications</h6>
+                        </li>
+                        <li><a class="dropdown-item" href="#">Policy review due in 3 days</a></li>
+                        <li><a class="dropdown-item" href="#">New ASQA standards available</a></li>
+                        <li><a class="dropdown-item" href="#">Risk assessment overdue</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item text-center" href="#">View All</a></li>
+                    </ul>
+                </div>
+
+                <!-- User Menu -->
+                <div class="dropdown">
+                    <button class="btn btn-outline-light btn-sm dropdown-toggle" type="button" id="userDropdown"
+                        data-bs-toggle="dropdown">
+                        <i class="fas fa-user-circle me-1"></i> John Doe (Admin)
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Profile</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                        <li><a class="dropdown-item" href="#" data-bs-toggle="modal"
+                                data-bs-target="#subscriptionModal"><i class="fas fa-crown me-2"></i>Subscription</a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar (same as index.html) -->
+
+            <div class="col-md-2 sidebar bg-light">
+                <div class="d-flex flex-column pt-3">
+                    <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist">
+                        <a class="nav-link" href="../index.html">
+                            <i class="fas fa-tachometer-alt me-2"></i> Overview
+                        </a>
+                        <a class="nav-link active" href="standards.html">
+                            <i class="fas fa-book me-2"></i> Standards
+                        </a>
+                        <a class="nav-link" href="policies.html">
+                            <i class="fas fa-file-contract me-2"></i> Policies
+                        </a>
+                        <a class="nav-link" href="registers.html">
+                            <i class="fas fa-clipboard-list me-2"></i> Registers
+                        </a>
+                        <a class="nav-link" href="tasks.html">
+                            <i class="fas fa-tasks me-2"></i> Tasks
+                        </a>
+                        <a class="nav-link" href="reports.html">
+                            <i class="fas fa-chart-bar me-2"></i> Reports
+                        </a>
+                        <a class="nav-link" href="files.html">
+                            <i class="fas fa-folder me-2"></i> Files
+                        </a>
+                        <a class="nav-link" href="admin.html">
+                            <i class="fas fa-cog me-2"></i> Admin
+                        </a>
+                    </div>
+
+                    <!-- Trial Banner -->
+                    <div class="alert alert-warning mt-4" id="trialBanner">
+                        <small>
+                            <i class="fas fa-crown me-1"></i>
+                            <strong>Trial Period:</strong> 15 days remaining
+                            <a href="#" class="alert-link" data-bs-toggle="modal"
+                                data-bs-target="#subscriptionModal">Upgrade now</a>
+                        </small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-10 main-content">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2>Standards Management</h2>
+                    <div class="btn-group">
+                        <button class="btn btn-outline-primary btn-sm">
+                            <i class="fas fa-sync-alt me-1"></i> Check for Updates
+                        </button>
+                        <button class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#importStandardsModal">
+                            <i class="fas fa-download me-1"></i> Import Standards
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ASQA Standards Alert -->
+                <div class="alert alert-info d-flex align-items-center">
+                    <i class="fas fa-info-circle me-3 fa-2x"></i>
+                    <div>
+                        <h6 class="alert-heading mb-1">New ASQA Standards Available</h6>
+                        <p class="mb-0">ASQA has released updated standards for 2025. <a href="#"
+                                class="alert-link">Review and adopt changes</a></p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <span>ASQA Standards Repository</span>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="showOutdated">
+                                    <label class="form-check-label" for="showOutdated">Show Outdated</label>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Standard Code</th>
+                                                <th>Title</th>
+                                                <th>Version</th>
+                                                <th>Status</th>
+                                                <th>Last Updated</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>ASQA-2025-001</td>
+                                                <td>Standard for Registered Training Organizations 2025</td>
+                                                <td>v2.1</td>
+                                                <td><span class="badge bg-success">Active</span></td>
+                                                <td>15 Sep 2023</td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-primary"><i
+                                                            class="fas fa-eye"></i></button>
+                                                    <button class="btn btn-sm btn-outline-secondary"><i
+                                                            class="fas fa-history"></i></button>
+                                                    <button class="btn btn-sm btn-outline-info"><i
+                                                            class="fas fa-sync"></i></button>
+                                                </td>
+                                            </tr>
+                                            <!-- More rows would go here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6 class="mb-0">AI Standards Mapping</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <h6>Policy Compliance</h6>
+                                    <div class="progress mb-2">
+                                        <div class="progress-bar bg-success" style="width: 85%">85% Compliant</div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <h6>Gap Analysis</h6>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Student Welfare
+                                            <span class="badge bg-warning">Needs Update</span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Assessment
+                                            <span class="badge bg-success">Compliant</span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            Complaints Handling
+                                            <span class="badge bg-danger">Non-Compliant</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <button class="btn btn-outline-primary btn-sm w-100">
+                                    <i class="fas fa-robot me-1"></i> Generate Compliance Report
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports & Analytics - ProSensia</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="../assets/images/logo.png" height="40" class="d-inline-block align-text-top">
+                
+            </a>
+            
+            <!-- Organization Switcher -->
+            <div class="navbar-nav mx-3">
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="orgDropdown" role="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-building me-1"></i>
+                        <span id="current-org">ACMI Education</span>
+                    </a>
+                    <ul class="dropdown-menu" id="org-list">
+                        <li><a class="dropdown-item active" href="#" data-org="acmi">ACMI Education</a></li>
+                        <li><a class="dropdown-item" href="#" data-org="global">Global Skills Institute</a></li>
+                        <li><a class="dropdown-item" href="#" data-org="metro">Metro College</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#addOrgModal"><i class="fas fa-plus me-1"></i>Add Organization</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center">
+                <!-- Live Support -->
+                <button class="btn btn-outline-light btn-sm me-2" id="liveSupport">
+                    <i class="fas fa-headset me-1"></i> Live Support
+                </button>
+
+                <!-- Notifications -->
+                <div class="dropdown me-3">
+                    <button class="btn btn-outline-light btn-sm dropdown-toggle position-relative" type="button" id="notificationsDropdown" data-bs-toggle="dropdown">
+                        <i class="fas fa-bell"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">5</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><h6 class="dropdown-header">Notifications</h6></li>
+                        <li><a class="dropdown-item" href="#">Policy review due in 3 days</a></li>
+                        <li><a class="dropdown-item" href="#">New ASQA standards available</a></li>
+                        <li><a class="dropdown-item" href="#">Risk assessment overdue</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-center" href="#">View All</a></li>
+                    </ul>
+                </div>
+
+                <!-- User Menu -->
+                <div class="dropdown">
+                    <button class="btn btn-outline-light btn-sm dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown">
+                        <i class="fas fa-user-circle me-1"></i> John Doe (Admin)
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Profile</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                        <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#subscriptionModal"><i class="fas fa-crown me-2"></i>Subscription</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-2 sidebar bg-light">
+                <div class="d-flex flex-column pt-3">
+                    <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist">
+                        <a class="nav-link" href="../index.html">
+                            <i class="fas fa-tachometer-alt me-2"></i> Overview
+                        </a>
+                        <a class="nav-link" href="standards.html">
+                            <i class="fas fa-book me-2"></i> Standards
+                        </a>
+                        <a class="nav-link" href="policies.html">
+                            <i class="fas fa-file-contract me-2"></i> Policies
+                        </a>
+                        <a class="nav-link" href="registers.html">
+                            <i class="fas fa-clipboard-list me-2"></i> Registers
+                        </a>
+                        <a class="nav-link" href="tasks.html">
+                            <i class="fas fa-tasks me-2"></i> Tasks
+                        </a>
+                        <a class="nav-link active" href="reports.html">
+                            <i class="fas fa-chart-bar me-2"></i> Reports
+                        </a>
+                        <a class="nav-link" href="files.html">
+                            <i class="fas fa-folder me-2"></i> Files
+                        </a>
+                        <a class="nav-link" href="admin.html">
+                            <i class="fas fa-cog me-2"></i> Admin
+                        </a>
+                    </div>
+
+                    <!-- Trial Banner -->
+                    <div class="alert alert-warning mt-4" id="trialBanner">
+                        <small>
+                            <i class="fas fa-crown me-1"></i>
+                            <strong>Trial Period:</strong> 15 days remaining
+                            <a href="#" class="alert-link" data-bs-toggle="modal"
+                                data-bs-target="#subscriptionModal">Upgrade now</a>
+                        </small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-10 main-content">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2>Reports & Analytics</h2>
+                    <div class="btn-group">
+                        <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#generateReportModal">
+                            <i class="fas fa-plus me-1"></i> Generate Report
+                        </button>
+                        <button class="btn btn-primary btn-sm" id="aiAnalysisBtn">
+                            <i class="fas fa-robot me-1"></i> AI Analysis
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Report Statistics -->
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <h3 class="text-primary">24</h3>
+                                <p class="text-muted mb-0">Saved Reports</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <h3 class="text-success">87%</h3>
+                                <p class="text-muted mb-0">Compliance Score</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <h3 class="text-warning">12</h3>
+                                <p class="text-muted mb-0">Pending Actions</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <h3 class="text-info">92%</h3>
+                                <p class="text-muted mb-0">Task Completion</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Report Navigation -->
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-header">
+                                <span>Report Categories</span>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="list-group list-group-flush">
+                                    <a href="#" class="list-group-item list-group-item-action active" data-category="compliance">
+                                        <i class="fas fa-shield-alt me-2"></i>Compliance Reports
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action" data-category="performance">
+                                        <i class="fas fa-chart-line me-2"></i>Performance Analytics
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action" data-category="risk">
+                                        <i class="fas fa-exclamation-triangle me-2"></i>Risk Reports
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action" data-category="audit">
+                                        <i class="fas fa-search me-2"></i>Audit Reports
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action" data-category="tasks">
+                                        <i class="fas fa-tasks me-2"></i>Task Reports
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action" data-category="custom">
+                                        <i class="fas fa-cog me-2"></i>Custom Reports
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Reports -->
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <span>Quick Reports</span>
+                            </div>
+                            <div class="card-body">
+                                <button class="btn btn-outline-primary w-100 mb-2" onclick="generateQuickReport('compliance-summary')">
+                                    <i class="fas fa-file-pdf me-2"></i>Compliance Summary
+                                </button>
+                                <button class="btn btn-outline-success w-100 mb-2" onclick="generateQuickReport('task-performance')">
+                                    <i class="fas fa-chart-bar me-2"></i>Task Performance
+                                </button>
+                                <button class="btn btn-outline-warning w-100" onclick="generateQuickReport('risk-assessment')">
+                                    <i class="fas fa-exclamation-triangle me-2"></i>Risk Assessment
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Report Content -->
+                    <div class="col-md-9">
+                        <!-- AI Analysis Panel -->
+                        <div class="card mb-4" id="aiAnalysisPanel" style="display: none;">
+                            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                                <span><i class="fas fa-robot me-2"></i>AI Compliance Analysis</span>
+                                <button class="btn btn-sm btn-light" onclick="hideAIAnalysis()">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6>Compliance Health Score</h6>
+                                        <div class="progress mb-3" style="height: 25px;">
+                                            <div class="progress-bar bg-success" style="width: 87%">87%</div>
+                                        </div>
+                                        <p class="small text-muted">Overall compliance health based on policy adherence and task completion.</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6>Risk Heatmap</h6>
+                                        <div class="risk-heatmap">
+                                            <div class="d-flex justify-content-between mb-1">
+                                                <span class="small">Low Risk</span>
+                                                <span class="small">High Risk</span>
+                                            </div>
+                                            <div class="progress" style="height: 20px;">
+                                                <div class="progress-bar bg-success" style="width: 60%"></div>
+                                                <div class="progress-bar bg-warning" style="width: 25%"></div>
+                                                <div class="progress-bar bg-danger" style="width: 15%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-3">
+                                    <h6>AI Recommendations</h6>
+                                    <ul class="list-group">
+                                        <li class="list-group-item">
+                                            <i class="fas fa-lightbulb text-warning me-2"></i>
+                                            Update Student Welfare policy to meet new ASQA standards
+                                        </li>
+                                        <li class="list-group-item">
+                                            <i class="fas fa-lightbulb text-warning me-2"></i>
+                                            Schedule risk assessment for IT infrastructure
+                                        </li>
+                                        <li class="list-group-item">
+                                            <i class="fas fa-lightbulb text-success me-2"></i>
+                                            Compliance team performing above industry average
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <span>Compliance Reports</span>
+                                <div class="btn-group">
+                                    <button class="btn btn-sm btn-outline-primary">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-secondary">
+                                        <i class="fas fa-share"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-warning">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <!-- Report Filters -->
+                                <div class="row mb-3">
+                                    <div class="col-md-3">
+                                        <label class="form-label">Date Range</label>
+                                        <select class="form-select">
+                                            <option>Last 30 Days</option>
+                                            <option>Last 90 Days</option>
+                                            <option>Last 6 Months</option>
+                                            <option>Custom Range</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label">Department</label>
+                                        <select class="form-select">
+                                            <option>All Departments</option>
+                                            <option>Academic</option>
+                                            <option>Administration</option>
+                                            <option>Student Services</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label">Report Type</label>
+                                        <select class="form-select">
+                                            <option>All Reports</option>
+                                            <option>Summary</option>
+                                            <option>Detailed</option>
+                                            <option>Executive</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label">&nbsp;</label>
+                                        <button class="btn btn-primary w-100">Apply Filters</button>
+                                    </div>
+                                </div>
+
+                                <!-- Reports Grid -->
+                                <div class="row" id="reportsGrid">
+                                    <div class="col-md-4 mb-3">
+                                        <div class="card report-card">
+                                            <div class="card-body">
+                                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                                    <h6 class="card-title">Q3 Compliance Summary</h6>
+                                                    <span class="badge bg-success">Latest</span>
+                                                </div>
+                                                <p class="card-text small text-muted">Quarterly compliance overview with department performance metrics.</p>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <small class="text-muted">Generated: 15 Oct 2023</small>
+                                                    <div class="btn-group">
+                                                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                        <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-download"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <div class="card report-card">
+                                            <div class="card-body">
+                                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                                    <h6 class="card-title">Risk Assessment Report</h6>
+                                                    <span class="badge bg-warning">Needs Review</span>
+                                                </div>
+                                                <p class="card-text small text-muted">Comprehensive risk analysis with mitigation recommendations.</p>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <small class="text-muted">Generated: 10 Oct 2023</small>
+                                                    <div class="btn-group">
+                                                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                        <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-download"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <div class="card report-card">
+                                            <div class="card-body">
+                                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                                    <h6 class="card-title">Task Performance Analytics</h6>
+                                                    <span class="badge bg-info">Trending</span>
+                                                </div>
+                                                <p class="card-text small text-muted">Team performance metrics and completion rate analysis.</p>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <small class="text-muted">Generated: 05 Oct 2023</small>
+                                                    <div class="btn-group">
+                                                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                        <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-download"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Charts Section -->
+                                <div class="row mt-4">
+                                    <div class="col-md-6">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h6 class="mb-0">Compliance Trend</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <canvas id="complianceTrendChart" height="250"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h6 class="mb-0">Department Performance</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <canvas id="departmentPerformanceChart" height="250"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <!-- Generate Report Modal -->
+    <div class="modal fade" id="generateReportModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Generate Custom Report</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="generateReportForm">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Report Type</label>
+                                    <select class="form-select" required>
+                                        <option value="">Select Report Type</option>
+                                        <option value="compliance">Compliance Summary</option>
+                                        <option value="performance">Performance Analytics</option>
+                                        <option value="risk">Risk Assessment</option>
+                                        <option value="audit">Audit Report</option>
+                                        <option value="custom">Custom Report</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Date Range</label>
+                                    <select class="form-select" required>
+                                        <option value="30">Last 30 Days</option>
+                                        <option value="90">Last 90 Days</option>
+                                        <option value="180">Last 6 Months</option>
+                                        <option value="365">Last 12 Months</option>
+                                        <option value="custom">Custom Range</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Include Sections</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="includePolicies" checked>
+                                <label class="form-check-label" for="includePolicies">Policies & Procedures</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="includeTasks" checked>
+                                <label class="form-check-label" for="includeTasks">Task Performance</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="includeRisks" checked>
+                                <label class="form-check-label" for="includeRisks">Risk Management</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="includeAudit">
+                                <label class="form-check-label" for="includeAudit">Audit Findings</label>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Report Format</label>
+                            <select class="form-select" required>
+                                <option value="pdf">PDF Document</option>
+                                <option value="excel">Excel Spreadsheet</option>
+                                <option value="html">Web Page</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Report Name</label>
+                            <input type="text" class="form-control" placeholder="Enter report name..." required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Generate Report</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../js/app.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/tenant-management.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // AI Analysis toggle
+            document.getElementById('aiAnalysisBtn').addEventListener('click', function() {
+                document.getElementById('aiAnalysisPanel').style.display = 'block';
+            });
+
+            // Report category navigation
+            document.querySelectorAll('[data-category]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const category = this.dataset.category;
+                    loadReportCategory(category);
+                    
+                    // Update active state
+                    document.querySelectorAll('[data-category]').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                });
+            });
+
+            // Initialize charts
+            const trendCtx = document.getElementById('complianceTrendChart').getContext('2d');
+            new Chart(trendCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+                    datasets: [{
+                        label: 'Compliance Score',
+                        data: [72, 75, 78, 82, 80, 85, 83, 87, 85, 87],
+                        borderColor: '#3498db',
+                        backgroundColor: 'rgba(52, 152, 219, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+
+            const deptCtx = document.getElementById('departmentPerformanceChart').getContext('2d');
+            new Chart(deptCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Academic', 'Admin', 'Compliance', 'Student Services', 'IT'],
+                    datasets: [{
+                        label: 'Performance Score',
+                        data: [85, 92, 95, 88, 78],
+                        backgroundColor: ['#3498db', '#e74c3c', '#f39c12', '#27ae60', '#9b59b6']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+        });
+
+        function hideAIAnalysis() {
+            document.getElementById('aiAnalysisPanel').style.display = 'none';
+        }
+
+        function loadReportCategory(category) {
+            console.log('Loading report category:', category);
+            // In real implementation, this would fetch reports for the selected category
+        }
+
+        function generateQuickReport(type) {
+            console.log('Generating quick report:', type);
+            // In real implementation, this would generate and download the report
+            alert(`Generating ${type} report...`);
+        }
+    </script>
+</body>
+</html>

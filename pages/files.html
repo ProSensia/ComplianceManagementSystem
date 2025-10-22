@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Management - ProSensia</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="../assets/images/logo.png" height="40" class="d-inline-block align-text-top">
+                
+            </a>
+            
+            <!-- Organization Switcher -->
+            <div class="navbar-nav mx-3">
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="orgDropdown" role="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-building me-1"></i>
+                        <span id="current-org">ACMI Education</span>
+                    </a>
+                    <ul class="dropdown-menu" id="org-list">
+                        <li><a class="dropdown-item active" href="#" data-org="acmi">ACMI Education</a></li>
+                        <li><a class="dropdown-item" href="#" data-org="global">Global Skills Institute</a></li>
+                        <li><a class="dropdown-item" href="#" data-org="metro">Metro College</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#addOrgModal"><i class="fas fa-plus me-1"></i>Add Organization</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center">
+                <!-- Live Support -->
+                <button class="btn btn-outline-light btn-sm me-2" id="liveSupport">
+                    <i class="fas fa-headset me-1"></i> Live Support
+                </button>
+
+                <!-- Notifications -->
+                <div class="dropdown me-3">
+                    <button class="btn btn-outline-light btn-sm dropdown-toggle position-relative" type="button" id="notificationsDropdown" data-bs-toggle="dropdown">
+                        <i class="fas fa-bell"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">5</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><h6 class="dropdown-header">Notifications</h6></li>
+                        <li><a class="dropdown-item" href="#">Policy review due in 3 days</a></li>
+                        <li><a class="dropdown-item" href="#">New ASQA standards available</a></li>
+                        <li><a class="dropdown-item" href="#">Risk assessment overdue</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-center" href="#">View All</a></li>
+                    </ul>
+                </div>
+
+                <!-- User Menu -->
+                <div class="dropdown">
+                    <button class="btn btn-outline-light btn-sm dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown">
+                        <i class="fas fa-user-circle me-1"></i> John Doe (Admin)
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Profile</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                        <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#subscriptionModal"><i class="fas fa-crown me-2"></i>Subscription</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-2 sidebar bg-light">
+                <div class="d-flex flex-column pt-3">
+                    <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist">
+                        <a class="nav-link" href="../index.html">
+                            <i class="fas fa-tachometer-alt me-2"></i> Overview
+                        </a>
+                        <a class="nav-link" href="standards.html">
+                            <i class="fas fa-book me-2"></i> Standards
+                        </a>
+                        <a class="nav-link" href="policies.html">
+                            <i class="fas fa-file-contract me-2"></i> Policies
+                        </a>
+                        <a class="nav-link" href="registers.html">
+                            <i class="fas fa-clipboard-list me-2"></i> Registers
+                        </a>
+                        <a class="nav-link" href="tasks.html">
+                            <i class="fas fa-tasks me-2"></i> Tasks
+                        </a>
+                        <a class="nav-link" href="reports.html">
+                            <i class="fas fa-chart-bar me-2"></i> Reports
+                        </a>
+                        <a class="nav-link active" href="files.html">
+                            <i class="fas fa-folder me-2"></i> Files
+                        </a>
+                        <a class="nav-link" href="admin.html">
+                            <i class="fas fa-cog me-2"></i> Admin
+                        </a>
+                    </div>
+
+                    <!-- Trial Banner -->
+                    <div class="alert alert-warning mt-4" id="trialBanner">
+                        <small>
+                            <i class="fas fa-crown me-1"></i>
+                            <strong>Trial Period:</strong> 15 days remaining
+                            <a href="#" class="alert-link" data-bs-toggle="modal"
+                                data-bs-target="#subscriptionModal">Upgrade now</a>
+                        </small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-10 main-content">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2>File Management</h2>
+                    <div class="btn-group">
+                        <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#uploadFileModal">
+                            <i class="fas fa-upload me-1"></i> Upload Files
+                        </button>
+                        <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#createFolderModal">
+                            <i class="fas fa-folder-plus me-1"></i> New Folder
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Storage Statistics -->
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <h3 class="text-primary">2.3GB</h3>
+                                <p class="text-muted mb-0">Used Storage</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <h3 class="text-success">1.2GB</h3>
+                                <p class="text-muted mb-0">Available</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <h3 class="text-info">247</h3>
+                                <p class="text-muted mb-0">Total Files</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <h3 class="text-warning">65%</h3>
+                                <p class="text-muted mb-0">Storage Used</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- File Navigation -->
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <span>Folders</span>
+                                <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#createFolderModal">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="list-group list-group-flush">
+                                    <a href="#" class="list-group-item list-group-item-action active" data-folder="all">
+                                        <i class="fas fa-folder me-2"></i>All Files
+                                        <span class="badge bg-primary float-end">247</span>
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action" data-folder="policies">
+                                        <i class="fas fa-file-contract me-2"></i>Policies
+                                        <span class="badge bg-secondary float-end">42</span>
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action" data-folder="reports">
+                                        <i class="fas fa-chart-bar me-2"></i>Reports
+                                        <span class="badge bg-info float-end">24</span>
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action" data-folder="audit">
+                                        <i class="fas fa-search me-2"></i>Audit Documents
+                                        <span class="badge bg-warning float-end">18</span>
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action" data-folder="standards">
+                                        <i class="fas fa-book me-2"></i>Standards
+                                        <span class="badge bg-success float-end">35</span>
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action" data-folder="templates">
+                                        <i class="fas fa-copy me-2"></i>Templates
+                                        <span class="badge bg-primary float-end">12</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recent Activity -->
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <span>Recent Activity</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="activity-item mb-3">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-file-upload text-primary me-2"></i>
+                                        <div>
+                                            <small class="d-block">Assessment Policy v2.3</small>
+                                            <small class="text-muted">Uploaded 2 hours ago</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="activity-item mb-3">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-user-edit text-success me-2"></i>
+                                        <div>
+                                            <small class="d-block">Sarah Johnson edited</small>
+                                            <small class="text-muted">Compliance Report.pdf</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-folder-plus text-warning me-2"></i>
+                                        <div>
+                                            <small class="d-block">New folder created</small>
+                                            <small class="text-muted">Q4 Audit Documents</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- File Browser -->
+                    <div class="col-md-9">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <span>All Files</span>
+                                <div class="btn-group">
+                                    <button class="btn btn-sm btn-outline-primary" id="gridView">
+                                        <i class="fas fa-th-large"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-primary active" id="listView">
+                                        <i class="fas fa-list"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-secondary">
+                                        <i class="fas fa-sort"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <!-- File Actions -->
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Search files...">
+                                            <button class="btn btn-outline-secondary" type="button">
+                                                <i class="fas fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="btn-group float-end">
+                                            <button class="btn btn-outline-secondary btn-sm">
+                                                <i class="fas fa-filter"></i> Filter
+                                            </button>
+                                            <button class="btn btn-outline-secondary btn-sm">
+                                                <i class="fas fa-download"></i> Export
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Files Grid View -->
+                                <div class="row" id="filesGridView">
+                                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mb-3">
+                                        <div class="card file-card">
+                                            <div class="card-body text-center">
+                                                <i class="fas fa-file-pdf fa-2x text-danger mb-2"></i>
+                                                <h6 class="card-title">Assessment Policy</h6>
+                                                <p class="card-text small text-muted">v2.3 • 2.4 MB</p>
+                                                <div class="btn-group w-100">
+                                                    <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                    <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-download"></i></button>
+                                                    <button class="btn btn-sm btn-outline-warning"><i class="fas fa-edit"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mb-3">
+                                        <div class="card file-card">
+                                            <div class="card-body text-center">
+                                                <i class="fas fa-file-word fa-2x text-primary mb-2"></i>
+                                                <h6 class="card-title">Compliance Report</h6>
+                                                <p class="card-text small text-muted">Q3 • 1.8 MB</p>
+                                                <div class="btn-group w-100">
+                                                    <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                    <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-download"></i></button>
+                                                    <button class="btn btn-sm btn-outline-warning"><i class="fas fa-edit"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mb-3">
+                                        <div class="card file-card">
+                                            <div class="card-body text-center">
+                                                <i class="fas fa-file-excel fa-2x text-success mb-2"></i>
+                                                <h6 class="card-title">Risk Assessment</h6>
+                                                <p class="card-text small text-muted">Data • 3.2 MB</p>
+                                                <div class="btn-group w-100">
+                                                    <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                    <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-download"></i></button>
+                                                    <button class="btn btn-sm btn-outline-warning"><i class="fas fa-edit"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- More file cards would go here -->
+                                </div>
+
+                                <!-- Files List View -->
+                                <div class="table-responsive d-none" id="filesListView">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Type</th>
+                                                <th>Size</th>
+                                                <th>Modified</th>
+                                                <th>Owner</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <i class="fas fa-file-pdf text-danger me-2"></i>
+                                                    Assessment Policy v2.3.pdf
+                                                </td>
+                                                <td>PDF Document</td>
+                                                <td>2.4 MB</td>
+                                                <td>15 Oct 2023</td>
+                                                <td>Sarah Johnson</td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                    <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-download"></i></button>
+                                                    <button class="btn btn-sm btn-outline-warning"><i class="fas fa-edit"></i></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <i class="fas fa-file-word text-primary me-2"></i>
+                                                    Compliance Report Q3.docx
+                                                </td>
+                                                <td>Word Document</td>
+                                                <td>1.8 MB</td>
+                                                <td>10 Oct 2023</td>
+                                                <td>Michael Chen</td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                    <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-download"></i></button>
+                                                    <button class="btn btn-sm btn-outline-warning"><i class="fas fa-edit"></i></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <i class="fas fa-file-excel text-success me-2"></i>
+                                                    Risk Assessment Data.xlsx
+                                                </td>
+                                                <td>Excel Spreadsheet</td>
+                                                <td>3.2 MB</td>
+                                                <td>08 Oct 2023</td>
+                                                <td>David Wilson</td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                                    <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-download"></i></button>
+                                                    <button class="btn btn-sm btn-outline-warning"><i class="fas fa-edit"></i></button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <!-- Storage Progress -->
+                                <div class="mt-4">
+                                    <h6>Storage Usage</h6>
+                                    <div class="progress mb-2" style="height: 20px;">
+                                        <div class="progress-bar bg-success" style="width: 35%">Policies (35%)</div>
+                                        <div class="progress-bar bg-info" style="width: 25%">Reports (25%)</div>
+                                        <div class="progress-bar bg-warning" style="width: 20%">Audit (20%)</div>
+                                        <div class="progress-bar bg-secondary" style="width: 20%">Other (20%)</div>
+                                    </div>
+                                    <div class="d-flex justify-content-between text-muted small">
+                                        <span>2.3GB of 3.5GB used</span>
+                                        <span>65% full</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Collaboration Section -->
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <i class="fas fa-users me-2"></i>File Collaboration
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6>Recent Comments</h6>
+                                        <div class="comment-section">
+                                            <div class="comment mb-3">
+                                                <div class="d-flex">
+                                                    <img src="https://via.placeholder.com/40" class="rounded-circle me-3" alt="User">
+                                                    <div>
+                                                        <strong>Sarah Johnson</strong>
+                                                        <small class="text-muted">on Assessment Policy.pdf</small>
+                                                        <p class="mb-1">Please review section 4.2 for compliance updates.</p>
+                                                        <small class="text-muted">2 hours ago</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="comment">
+                                                <div class="d-flex">
+                                                    <img src="https://via.placeholder.com/40" class="rounded-circle me-3" alt="User">
+                                                    <div>
+                                                        <strong>Michael Chen</strong>
+                                                        <small class="text-muted">on Compliance Report.docx</small>
+                                                        <p class="mb-1">I've updated the risk assessment section.</p>
+                                                        <small class="text-muted">5 hours ago</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6>Shared With Me</h6>
+                                        <div class="list-group">
+                                            <a href="#" class="list-group-item list-group-item-action">
+                                                <i class="fas fa-file-pdf text-danger me-2"></i>
+                                                Student Welfare Policy.pdf
+                                                <small class="text-muted d-block">Shared by David Wilson</small>
+                                            </a>
+                                            <a href="#" class="list-group-item list-group-item-action">
+                                                <i class="fas fa-folder text-warning me-2"></i>
+                                                Q4 Audit Documents
+                                                <small class="text-muted d-block">Shared by Compliance Team</small>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <!-- Upload File Modal -->
+    <div class="modal fade" id="uploadFileModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Upload Files</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="uploadFileForm">
+                        <div class="mb-3">
+                            <label class="form-label">Select Files</label>
+                            <input type="file" class="form-control" multiple required>
+                            <div class="form-text">You can select multiple files. Maximum file size: 50MB</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Destination Folder</label>
+                            <select class="form-select" required>
+                                <option value="">Select Folder</option>
+                                <option value="policies">Policies</option>
+                                <option value="reports">Reports</option>
+                                <option value="audit">Audit Documents</option>
+                                <option value="standards">Standards</option>
+                                <option value="templates">Templates</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Share With</label>
+                            <select class="form-select" multiple>
+                                <option value="sarah">Sarah Johnson</option>
+                                <option value="michael">Michael Chen</option>
+                                <option value="david">David Wilson</option>
+                                <option value="lisa">Lisa Brown</option>
+                            </select>
+                            <div class="form-text">Hold Ctrl to select multiple people</div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Upload Files</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/app.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/tenant-management.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // View toggle
+            document.getElementById('gridView').addEventListener('click', function() {
+                document.getElementById('filesGridView').classList.remove('d-none');
+                document.getElementById('filesListView').classList.add('d-none');
+                this.classList.add('active');
+                document.getElementById('listView').classList.remove('active');
+            });
+
+            document.getElementById('listView').addEventListener('click', function() {
+                document.getElementById('filesGridView').classList.add('d-none');
+                document.getElementById('filesListView').classList.remove('d-none');
+                this.classList.add('active');
+                document.getElementById('gridView').classList.remove('active');
+            });
+
+            // Folder navigation
+            document.querySelectorAll('[data-folder]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const folder = this.dataset.folder;
+                    loadFolderContents(folder);
+                    
+                    // Update active state
+                    document.querySelectorAll('[data-folder]').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                });
+            });
+        });
+
+        function loadFolderContents(folder) {
+            console.log('Loading folder:', folder);
+            // In real implementation, this would fetch files for the selected folder
+        }
+    </script>
+</body>
+</html>
