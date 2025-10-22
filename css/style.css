@@ -103,6 +103,30 @@ p, span, div {
     color: var(--text-color) !important;
 }
 
+.modal-content {
+    border: none;
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.modal-header {
+    background: var(--primary-color);
+    color: white;
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+
+.modal-header .btn-close {
+    filter: invert(1);
+}
+
+/* Unified Charts Container */
+.chart-container {
+    position: relative;
+    height: 300px;
+    padding: 1rem;
+}
+
+
 /* Table Styling */
 .table {
     background-color: var(--card-bg) !important;
@@ -185,14 +209,87 @@ p, span, div {
     color: white !important;
 }
 
-/* Modal Styling */
-.modal-content {
-    background-color: var(--card-bg) !important;
-    color: var(--text-color) !important;
+/* Support Panel */
+.support-panel {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 350px;
+    height: 400px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+    display: none;
+    flex-direction: column;
+    z-index: 1000;
 }
 
-.modal-header, .modal-footer {
-    border-color: #e9ecef !important;
+.support-panel.show {
+    display: flex;
+}
+
+.support-header {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 10px 10px 0 0;
+}
+
+.support-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+}
+
+.message {
+    margin-bottom: 15px;
+}
+
+.message.support .message-content {
+    background: var(--light-color);
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 80%;
+}
+
+.support-input {
+    padding: 15px;
+    border-top: 1px solid #eee;
+    display: flex;
+    gap: 10px;
+}
+
+/* Suggestion Items */
+.suggestion-item {
+    border-left: 4px solid;
+    border-radius: 5px;
+}
+
+.suggestion-item.alert-info {
+    border-left-color: var(--info-color);
+}
+
+.suggestion-item.alert-warning {
+    border-left-color: var(--warning-color);
+}
+
+.suggestion-item.alert-success {
+    border-left-color: var(--success-color);
+}
+
+/* Badge Styles */
+.badge {
+    font-weight: 500;
 }
 
 /* Unified Metrics Cards */

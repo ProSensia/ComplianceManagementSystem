@@ -10,8 +10,84 @@
     <link rel="stylesheet" href="../css/responsive.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <div id="nav-container"></div>
+    <!-- Navigation (same as index.html) -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="../assets/images/logo.png" height="40" class="d-inline-block align-text-top">
+                
+            </a>
+
+            <!-- Organization Switcher -->
+            <div class="navbar-nav mx-3">
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="orgDropdown" role="button"
+                        data-bs-toggle="dropdown">
+                        <i class="fas fa-building me-1"></i>
+                        <span id="current-org">ACMI Education</span>
+                    </a>
+                    <ul class="dropdown-menu" id="org-list">
+                        <li><a class="dropdown-item active" href="#" data-org="acmi">ACMI Education</a></li>
+                        <li><a class="dropdown-item" href="#" data-org="global">Global Skills Institute</a></li>
+                        <li><a class="dropdown-item" href="#" data-org="metro">Metro College</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#addOrgModal"><i
+                                    class="fas fa-plus me-1"></i>Add Organization</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center">
+                <!-- Live Support -->
+                <button class="btn btn-outline-light btn-sm me-2" id="liveSupport">
+                    <i class="fas fa-headset me-1"></i> Live Support
+                </button>
+
+                <!-- Notifications -->
+                <div class="dropdown me-3">
+                    <button class="btn btn-outline-light btn-sm dropdown-toggle position-relative" type="button"
+                        id="notificationsDropdown" data-bs-toggle="dropdown">
+                        <i class="fas fa-bell"></i>
+                        <span
+                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">5</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <h6 class="dropdown-header">Notifications</h6>
+                        </li>
+                        <li><a class="dropdown-item" href="#">Policy review due in 3 days</a></li>
+                        <li><a class="dropdown-item" href="#">New ASQA standards available</a></li>
+                        <li><a class="dropdown-item" href="#">Risk assessment overdue</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item text-center" href="#">View All</a></li>
+                    </ul>
+                </div>
+
+                <!-- User Menu -->
+                <div class="dropdown">
+                    <button class="btn btn-outline-light btn-sm dropdown-toggle" type="button" id="userDropdown"
+                        data-bs-toggle="dropdown">
+                        <i class="fas fa-user-circle me-1"></i> John Doe (Admin)
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Profile</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                        <li><a class="dropdown-item" href="#" data-bs-toggle="modal"
+                                data-bs-target="#subscriptionModal"><i class="fas fa-crown me-2"></i>Subscription</a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
 
     <div class="container-fluid">
         <div class="row">
@@ -22,11 +98,29 @@
                         <a class="nav-link" href="../index.html">
                             <i class="fas fa-tachometer-alt me-2"></i> Overview
                         </a>
-                        <a class="nav-link" href="team.html">
+                        <a class="nav-link" href="standards.html">
+                            <i class="fas fa-book me-2"></i> Standards
+                        </a>
+                        <a class="nav-link" href="policies.html">
+                            <i class="fas fa-file-contract me-2"></i> Policies
+                        </a>
+                        <a class="nav-link" href="registers.html">
+                            <i class="fas fa-clipboard-list me-2"></i> Registers
+                        </a>
+                        <a class="nav-link" href="tasks.html">
+                            <i class="fas fa-tasks me-2"></i> Tasks
+                        </a>
+                        <a class="nav-link" href="reports.html">
+                            <i class="fas fa-chart-bar me-2"></i> Reports
+                        </a>
+                        <a class="nav-link" href="files.html">
+                            <i class="fas fa-folder me-2"></i> Files
+                        </a>
+                        <a class="nav-link active" href="team.html">
                             <i class="fas fa-users me-2"></i> Team
                         </a>
-                        <a class="nav-link active" href="#">
-                            <i class="fas fa-user me-2"></i> Profile
+                        <a class="nav-link" href="admin.html">
+                            <i class="fas fa-cog me-2"></i> Admin
                         </a>
                     </div>
                 </div>
